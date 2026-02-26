@@ -1,6 +1,6 @@
 # GSoC 2026 — OpenMS Contribution Journal
 
-**Applicant:** Ayush Jha  
+**Applicant:** Ayush Kumar Jha  
 **GitHub:** github.com/Ayushj0704  
 **Organization:** OpenMS  
 **Project:** Unify development dependencies using pixi/conda-forge
