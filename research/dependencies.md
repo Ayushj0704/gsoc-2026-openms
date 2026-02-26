@@ -34,3 +34,11 @@
 - Create `pixi.toml` with above dependencies
 - Test Ubuntu first
 - Then macOS and Windows
+## Final Verified Mapping
+
+| Original | conda-forge Name | Status |
+|---|---|---|
+| apache-arrow | libarrow | ✅ verified |
+| coinor/cbc/clp | coin-or-clp | ✅ verified |
+| qtbase | qt6-main | ✅ verified |
+| all others | same name | ✅ verified |

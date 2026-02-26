@@ -40,3 +40,11 @@ This project fixes that permanently.
 - CI running on fork
 - Full dependency analysis on conda-forge
 - Found Windows CI crash bug (ghostscript exit code 139)
+## Contributions So Far
+- PR #8778 — macOS Homebrew LLVM fix
+- Full conda-forge dependency analysis
+- CI running on fork
+- Found Windows CI crash (ghostscript exit code 139)
+- Created working pixi.toml for all 3 platforms
+- Modified CI yaml to use pixi for Ubuntu
+- Active communication with mentor timosachsenberg
