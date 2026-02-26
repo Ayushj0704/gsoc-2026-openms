@@ -1,4 +1,77 @@
-# Week 1 Progress
+# Week 1 Progress (Feb 21 - Feb 28, 2026)
+
+## Day 1 — Feb 21, 2026
+
+### What I Did
+- Discovered issue #8776 — macOS arm64 build failing with 
+  Homebrew LLVM due to missing `std::__1::__hash_memory`
+- Investigated the root cause — libc++ mismatch between 
+  Homebrew LLVM and system libraries
+- Fixed it by adding macOS/Clang block in CMakeLists.txt 
+  that injects `-L` flag for Homebrew's libc++
+- Opened PR #8778 with fix and tested on macOS arm64
+
+### Feedback Received
+- jpfeuffer (core maintainer) reviewed and said approach 
+  was unstable — manually touching link flags could break 
+  other setups
+- Understood his point — someone might intentionally mix 
+  Homebrew LLVM with system libs
+- Closed PR gracefully and left workaround note on #8776 
+  for others hitting same issue
+
+### Key Learning
+- Always think about other people's setups not just your own
+- Upstream bugs should be fixed upstream, not patched downstream
+- Closing gracefully > arguing with maintainer
+
+---
+
+## Day 2 — Feb 25, 2026
+
+### What I Did
+- Joined OpenMS Discord, introduced myself in #gsoc-students
+- Read GSoC 2026 ideas page on openms.de
+- Identified best project fit: "Unify development dependencies 
+  using pixi/conda-forge"
+- Connected with mentor timosachsenberg
+- He personally suggested a task — explore replacing 
+  choco/brew/apt with pixi/conda-forge
+
+### Key Learning
+- OpenMS uses 3 different package managers across platforms
+- This fragmentation is the ROOT CAUSE of issues like PR #8778
+- pixi can unify all platforms with one tool
+
+---
+
+## Day 3 — Feb 26, 2026
+
+### What I Did
+- Read and analyzed CI files:
+  - `.github/workflows/openms_ci_matrix_full.yml`
+  - `tools/ci/deps-ubuntu.sh`
+  - `tools/ci/deps-macos.sh`
+- Checked ALL dependencies on conda-forge (prefix.dev)
+- Created `pixi.toml` with all OpenMS dependencies
+- Got `pixi install` working for linux-64, osx-arm64, win-64
+- Enabled GitHub Actions on fork
+- Triggered CI — cppcheck passed ✅
+- Modified CI yaml — replaced apt-get with pixi for Ubuntu
+- Created `pixi-migration` branch
+- Triggered openms-ci-full on pixi-migration branch
+
+### Key Findings
+- apache-arrow → `libarrow` on conda-forge
+- coinor → `coin-or-clp` on conda-forge  
+- qtbase → `qt6-main` on conda-forge
+- Windows CI already broken — ghostscript crashed 
+  with exit code 139 on choco (confirms pixi need!)
+- cmake_prefix must include lib/cmake subdirectory
+
+### CI Status
+- cppcheck ✅ passing
+- openms-ci-full 🔄 running on pixi-migration branch# Week 1 Progress
 
 ## What I Did
 - Raised PR #8778 — macOS Homebrew LLVM fix
