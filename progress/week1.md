@@ -108,3 +108,21 @@
 ### CI Status
 - cppcheck ✅ passing
 - openms-ci-full 🔄 in progress on pixi-migration branch
+### Debugging Session — CI Failures
+
+#### Root Cause Found
+cmake_prefix paths were correct but COIN-OR packages 
+were incomplete. pixi.toml had only coin-or-clp but 
+OpenMS CMake requires:
+- coin-or-cbc (CBC solver)
+- coin-or-cgl (Cut Generation Library)  
+- coin-or-clp (LP solver)
+- coin-or-osi (Open Solver Interface)
+
+coin-or-coinutils not needed explicitly — pulled in 
+automatically as dependency of coin-or-cbc.
+
+#### How We Found It
+CDash build logs showed exact CMake error:
+"Could NOT find COIN (missing: COIN_CBC_LIBRARY COIN_CGL_LIBRARY)"
+ninja: build.ninja error was a consequence, not root cause.
