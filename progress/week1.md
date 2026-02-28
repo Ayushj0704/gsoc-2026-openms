@@ -126,3 +126,21 @@ automatically as dependency of coin-or-cbc.
 CDash build logs showed exact CMake error:
 "Could NOT find COIN (missing: COIN_CBC_LIBRARY COIN_CGL_LIBRARY)"
 ninja: build.ninja error was a consequence, not root cause.
+## Week 1 - Day 4-5 Progress
+
+### CI Pipeline Status
+| Platform | Status | Notes |
+|----------|--------|-------|
+| Ubuntu clang++17 | ✅ PASSING | 2466 tests |
+| Ubuntu g++13 | ✅ PASSING | Fixed LD_LIBRARY_PATH |
+| Ubuntu ARM64 | ✅ PASSING | |
+| macOS-14 | 🔄 Debugging | cmake segfault on osx-arm64 |
+| Windows-2025 | 🔄 Debugging | LAPACK linking for CoinOR |
+
+### Technical Fixes Applied
+- Migrated all 5 platforms to pixi-based dependency management
+- Fixed runtime library path issues (LD_LIBRARY_PATH/DYLD_LIBRARY_PATH)
+- Fixed KNIME CTD generation step for all platforms
+- Made Apple certificate import conditional on secret availability
+- Scoped LAPACK/BLAS to win-64 only
+- Investigating cmake 4.2.x segfault on osx-arm64 runner
